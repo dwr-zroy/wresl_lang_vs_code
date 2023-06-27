@@ -1,0 +1,25 @@
+{
+  "name": "wresl",
+  "displayName": "WRESL",
+  "description": "Water Resources Simultion Language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.79.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "wresl",
+      "aliases": ["WRESL", "wresl"],
+      "extensions": [".wresl"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "wresl",
+      "scopeName": "source.wresl",
+      "path": "./syntaxes/wresl.tmLanguage.json"
+    }]
+  }
+}
