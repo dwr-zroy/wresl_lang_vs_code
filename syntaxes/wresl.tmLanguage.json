@@ -2,19 +2,201 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "WRESL",
 	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
+		{"include": "#storage"},
+		{"include": "#keywords"},
+		{"include": "#entities"},
+		{"include": "#strings"},
+		{"include": "#comments"},
+		{"include": "#characters"}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.wresl",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
+		"storage":{
+			"patterns": [
+				{
+					"name": "storage.type.define.wresl",
+					"match": "\\b(define)\\b"
+				},   
+				{
+					"name": "storage.type.svar.wresl",
+					"match": "\\b(svar)\\b"
+				},
+				{
+					"name": "storage.type.model.wresl",
+					"match": "\\b(model)\\b"
+				},
+				{
+					"name": "storage.type.timeseries.wresl",
+					"match": "\\b(timeseries)\\b"
+				}
+			]
+		},
+		"keywords":{
+			"patterns":[
+				{
+					"name": "keyword.control.case.wresl",
+					"match": "\\b(case)\\b"
+				},   
+				{
+					"name": "keyword.control.condition.wresl",
+					"match": "\\b(condition)\\b"
+				},
+				{
+					"name": "keyword.control.import.wresl",
+					"match": "\\b(import)\\b"
+				},   
+				{
+					"name": "keyword.control.sequence.wresl",
+					"match": "\\b(sequence)\\b"
+				},   
+				{
+					"name":"keyword.control.order.wresl",
+					"match": "\\b(order)\\b"
+				}
+			]
+		},
+		"entities": {
+			"patterns": [
+				{
+					"name": "entity.name.type.goal.wresl",
+					"match": "\\b(goal)\\b"
+				},                              
+				{
+					"name": "entity.name.type.dvar.wresl",
+					"match": "\\b(dvar)\\b"
+				},                              
+				{
+					"name": "entity.name.type.integer.wresl",
+					"match": "\\b(integer)\\b"
+				},   
+				{
+					"name": "entity.name.type.alias.wresl",
+					"match": "\\b(alias)\\b"
+				},   
+				{
+					"name": "entity.name.type.value.wresl",
+					"match": "\\b(value)\\b"
+				},   
+				{
+					"name": "entity.name.type.std.wresl",
+					"match": "\\b(std)\\b"
+				},   
+				{
+					"name": "entity.name.type.kind.wresl",
+					"match": "\\b(kind)\\b"
+				},   
+				{
+					"name": "entity.name.type.units.wresl",
+					"match": "\\b(units)\\b"
+				},   
+				{
+					"name": "entity.name.type.weight.wresl",
+					"match": "\\b(weight)\\b"
+				},   
+				{
+					"name": "entity.name.type.upper.wresl",
+					"match": "\\b(upper)\\b"
+				},   
+				{
+					"name": "entity.name.type.lower.wresl",
+					"match": "\\b(lower)\\b"
+				},   
+				{
+					"name": "entity.name.type.convert.wresl",
+					"match": "\\b(convert)\\b"
+				},   
+				{
+					"name": "entity.name.type.name.wresl",
+					"match": "\\b(name)\\b"
+				},   
+				{
+					"name": "entity.name.type.type.wresl",
+					"match": "\\b(type)\\b"
+				},   
+				{
+					"name": "entity.name.type.desc.wresl",
+					"match": "\\b(desc)\\b"
+				},   
+				{
+					"name": "entity.name.type.bounds.wresl",
+					"match": "\\b(bounds)\\b"
+				},   
+				{
+					"name": "entity.name.type.penalty.wresl",
+					"match": "\\b(penalty)\\b"
+				},   
+				{
+					"name": "entity.name.type.month.wresl",
+					"match": "\\b(month)\\b"
+				},   
+				{
+					"name": "entity.name.type.wateryear.wresl",
+					"match": "\\b(wateryear)\\b"
+				},   
+				{
+					"name": "entity.name.type.always.wresl",
+					"match": "\\b(always)\\b"
+				},   
+				{
+					"name": "entity.name.type.never.wresl",
+					"match": "\\b(never)\\b"
+				},   
+				{
+					"name": "entity.name.type.constrain.wresl",
+					"match": "\\b(constrain)\\b"
+				},   
+				{
+					"name": "entity.name.type.include.wresl",
+					"match": "\\b(include)\\b"
+				},     
+				{
+					"name": "entity.name.type.lhs.wresl",
+					"match": "\\b(lhs)\\b"
+				},   
+				{
+					"name": "entity.name.type.rhs.wresl",
+					"match": "\\b(rhs)\\b"
+				},   
+				{
+					"name": "entity.name.type.lookup.wresl",
+					"match": "\\b(lookup)\\b"
+				},   
+				{
+					"name": "entity.name.type.select.wresl",
+					"match": "\\b(select)\\b"
+				},   
+				{
+					"name": "entity.name.type.from.wresl",
+					"match": "\\b(from)\\b"
+				},   
+				{
+					"name": "entity.name.type.where.wresl",
+					"match": "\\b(where)\\b"
+				},   
+				{
+					"name": "entity.name.type.given.wresl",
+					"match": "\\b(given)\\b"
+				},   
+				{
+					"name": "entity.name.type.use.wresl",
+					"match": "\\b(use)\\b"
+				},   
+				{
+					"name": "entity.name.type.sum.wresl",
+					"match": "\\b(sum)\\b"
+				},   
+				{
+					"name": "entity.name.type.max.wresl",
+					"match": "\\b(max)\\b"
+				},   
+				{
+					"name": "entity.name.type.min.wresl",
+					"match": "\\b(min)\\b"
+				},   
+				{
+					"name": "entity.name.type.abs.wresl",
+					"match": "\\b(abs)\\b"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.wresl",
@@ -24,6 +206,37 @@
 				{
 					"name": "constant.character.escape.wresl",
 					"match": "\\\\."
+				}
+			]
+		},
+		"characters": {
+			"name": "string.quoted.single.wresl",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.wresl",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+			"name": "comment.wresl",
+			"patterns": [
+				{
+					"name": "comment.line.exlamation.wresl",
+					"begin": "!",
+					"end": "\\n"
+				},
+				{
+					"name": "comment.line.slash.wresl",
+					"begin": "//",
+					"end": "\\n"
+				},
+				{
+					"name": "comment.block.wresl",
+					"begin": "/\\*",
+					"end": "\\*/"
 				}
 			]
 		}
