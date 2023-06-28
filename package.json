@@ -1,7 +1,13 @@
 {
+	"author": "CA Department of Water Resources, State Water Project Modeling Support Office",
+	"publisher": "cadwr-mso",
   "name": "wresl",
+  "repository": {
+    "type": "gitea",
+    "url": "http://dwrrhapp0179.ad.water.ca.gov/gitea/zachary.roy/wresl_lang_vs_code"
+  },
   "displayName": "WRESL",
-  "description": "Water Resources Simultion Language",
+  "description": "Water Resources Simultion Language Highlighting",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.79.0"
