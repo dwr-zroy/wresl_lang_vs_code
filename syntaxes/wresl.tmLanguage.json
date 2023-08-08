@@ -2,223 +2,218 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "WRESL",
 	"patterns": [
-		{"include": "#storage"},
-		{"include": "#keywords"},
-		{"include": "#entities"},
+		{"include": "#define"},
+		{"include": "#goal"},
+		{"include": "#include"},
+		{"include": "#var"},
+		{"include": "#group"},
+		{"include": "#model"},
+		{"include": "#sequence"},
+		{"include": "#alias"},
+		{"include": "#parameters"},
+		{"include": "#control"},
+		{"include": "#constants"},
 		{"include": "#strings"},
 		{"include": "#comments"},
 		{"include": "#characters"}
 	],
 	"repository": {
-		"storage":{
+		"define": {
+			"name": "meta.define.wresl",
+			"match": "(?i)\\b(define)(\\[\\w+\\])?(\\(fm\\))?\\s*(\\w+)",
+			"captures": {
+				"1": {"name": "storage.type.define.wresl"},
+				"2": {"name": "storage.modifier.scope.wresl"},
+				"3": {"name": "constant.character.define.wresl"},
+				"4": {"name": "entity.name.type.define.wresl"}
+			}
+		},
+		"include": {
+			"name": "meta.include.wresl",
+			"match": "(?i)\\b(include)(\\[\\w+\\])?\\s*(group)?\\s*(\\w+)?",
+			"captures": {
+				"1": {"name": "keyword.control.include.wresl"},
+				"2": {"name": "storage.modifier.scope.wresl"},
+				"3": {"name": "keyword.other.includedgroup.wresl"},
+				"4": {"name": "variable.parameter.includedgroup.wresl"}
+			}
+		},
+		"goal": {
+			"name": "meta.goal.wresl",
+			"match": "(?i)\\b(goal)(\\[\\w+\\])?(\\(fm\\))?\\s*(\\w+)",
+			"captures": {
+				"1": {"name": "storage.type.goal.wresl"},
+				"2": {"name": "storage.modifier.scope.wresl"},
+				"3": {"name": "constant.character.define.wresl"},
+				"4": {"name": "entity.name.type.define.wresl"}
+			}
+		},
+		"group": {
+			"name": "meta.group.wresl",
+			"match": "(?i)\\b(group)\\s*(\\w+)",
+			"captures": {
+				"1": {"name": "storage.type.group.wresl"},
+				"2": {"name": "entity.name.type.group.wresl"}
+			}
+		},
+		"model": {
+			"name": "meta.model.wresl",
+			"match": "(?i)\\b(model)\\s*(\\w+)",
+			"captures": {
+				"1": {"name": "storage.type.model.wresl"},
+				"2": {"name": "entity.name.type.model.wresl"}
+			}
+		},
+		"sequence": {
+			"name": "meta.sequence.wresl",
+			"begin": "(?i)\\b(sequence)\\s*(\\w+)\\s*\\{",
+			"end": "\\}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.sequence.wresl"},
+				"2": {"name": "entity.name.type.sequence.wresl"}
+			},
+			"patterns": [
+				{"include": "#condition"},
+				{"include": "#order"},
+				{"include": "#model"}
+			]
+		},
+		"condition":{
+			"match": "(?i)\\b(condition)",
+			"captures": {
+				"1": {"name": "keyword.other.condition.wresl"}
+			}
+		},
+		"order":{
+			"match": "(?i)\\b(order)\\s*(\\d+)",
+			"captures": {
+				"1": {"name": "keyword.other.order.wresl"},
+				"2": {"name": "constant.numeric.order.wresl"}
+			}
+		},
+		"alias":{
+			"match": "(?i)\\b(alias)\\s*(\\w+)(\\(\\$m.*\\))?",
+			"captures": {
+				"1": {"name": "keyword.other.define.alias.wresl"},
+				"2": {"name": "variable.parameter.alias.wresl"},
+				"3": {"name": "constant.character.futurearray.wresl"}
+			}
+		},
+		"var": {
+			"match": "(?i)\\b([ds]var)(\\(\\d+\\))?\\s*(\\w+)",
+			"captures": {
+				"1": {"name": "storage.type.var.wresl"},
+				"2": {"name": "constant.numeric.var.wresl"},
+				"3": {"name": "entity.name.type.var.wresl"}
+			}
+		},
+		"control": {
 			"patterns": [
 				{
-					"name": "storage.type.define.wresl",
-					"match": "\\b(define)\\b"
-				},   
-				{
-					"name": "storage.type.svar.wresl",
-					"match": "\\b(svar)\\b"
+					"name": "meta.side.wresl",
+					"match": "(?i)(lhs|rhs)",
+					"captures": {
+						"1": {"name": "keyword.control.side.wresl"}
+					}
 				},
 				{
-					"name": "storage.type.model.wresl",
-					"match": "\\b(model)\\b"
-				},
-				{
-					"name": "storage.type.timeseries.wresl",
-					"match": "\\b(timeseries)\\b"
+					"name": "meta.case.wresl",
+					"begin": "(?i)(case)\\s*(\\w+)\\s*\\{",
+					"end": "\\}",
+					"beginCaptures": {
+						"1": {"name": "keyword.control.case.wresl"},
+						"2": {"name": "variable.parameter.case.wresl"}
+					},
+					"patterns": [
+						{"include": "#condition"},
+						{"include": "#control"},
+						{"include": "#parameters"}
+					]
 				}
 			]
 		},
-		"keywords":{
-			"patterns":[
-				{
-					"name": "keyword.control.case.wresl",
-					"match": "\\b(case)\\b"
-				},   
-				{
-					"name": "keyword.control.condition.wresl",
-					"match": "\\b(condition)\\b"
-				},
-				{
-					"name": "keyword.control.import.wresl",
-					"match": "\\b(import)\\b"
-				},   
-				{
-					"name": "keyword.control.sequence.wresl",
-					"match": "\\b(sequence)\\b"
-				},   
-				{
-					"name":"keyword.control.order.wresl",
-					"match": "\\b(order)\\b"
-				}
-			]
-		},
-		"entities": {
+		"parameters": {
 			"patterns": [
 				{
-					"name": "entity.name.type.goal.wresl",
-					"match": "\\b(goal)\\b"
-				},                              
+					"name": "meta.value.wresl",
+					"match": "(?i)\\b(value)\\s*(\\w+)(\\(\\$m\\))?",
+					"captures": {
+						"1": {"name": "keyword.other.value.wresl"},
+						"2": {"name": "variable.parameter.value.wresl"},
+						"3": {"name": "constant.character.futurearray.wresl"}
+					}
+				},
 				{
-					"name": "entity.name.type.dvar.wresl",
-					"match": "\\b(dvar)\\b"
-				},                              
+					"name": "meta.timeseries.wresl",
+					"match": "(?i)\\b(timeseries)\\b",
+					"captures": {
+						"1": {"name": "keyword.other.timeseries.wresl"}
+					}
+				},
 				{
-					"name": "entity.name.type.integer.wresl",
-					"match": "\\b(integer)\\b"
-				},   
+					"name": "meta.kind.wresl",
+					"match": "(?i)\\b(kind)\\b",
+					"captures": {
+						"1": {"name": "keyword.other.kind.wresl"}
+					}
+				},
 				{
-					"name": "entity.name.type.alias.wresl",
-					"match": "\\b(alias)\\b"
-				},   
+					"name": "meta.units.wresl",
+					"match": "(?i)\\b(units)\\b",
+					"captures": {
+						"1": {"name": "keyword.other.units.wresl"}
+					}
+				},
 				{
-					"name": "entity.name.type.value.wresl",
-					"match": "\\b(value)\\b"
-				},   
+					"name": "meta.specifiedbound.wresl",
+					"match": "(?i)(upper|lower)\\s*(unbounded|\\d+\\.?\\d*)",
+					"captures": {
+						"1": {"name": "keyword.other.bound.wresl"},
+						"2": {"name": "constant.numeric.bound.wresl"}
+					}
+				},
 				{
-					"name": "entity.name.type.std.wresl",
-					"match": "\\b(std)\\b"
-				},   
+					"name": "meta.stdbound.wresl",
+					"match": "(?i)\\b(std)\\b",
+					"captures": {
+						"1": {"name": "constant.numeric.bound.wresl"}
+					}
+				},
 				{
-					"name": "entity.name.type.kind.wresl",
-					"match": "\\b(kind)\\b"
-				},   
+					"name": "meta.penalty.wresl",
+					"match": "(?i)\\b(penalty)\\s*(\\d\\.?\\d*)",
+					"captures": {
+						"1": {"name": "keyword.other.penalty.wresl"},
+						"2": {"name": "constant.numeric.penalty.wresl"}
+					}
+				}
+			]	
+		},
+		"constants":{
+			"name": "meta.constant.wresl",
+			"patterns": [
 				{
-					"name": "entity.name.type.units.wresl",
-					"match": "\\b(units)\\b"
-				},   
+					"match": "(?i)(prev)?(oct|nov|dec|jan|feb|mar|apr|may|jun|jul|aug|sept)",
+					"captures": {
+						"1": {"name": "support.constant.previous.wresl"},
+						"2": {"name": "support.constant.month.wresl"}
+					}
+				},
 				{
-					"name": "entity.name.type.weight.wresl",
-					"match": "\\b(weight)\\b"
-				},   
-				{
-					"name": "entity.name.type.upper.wresl",
-					"match": "\\b(upper)\\b"
-				},   
-				{
-					"name": "entity.name.type.lower.wresl",
-					"match": "\\b(lower)\\b"
-				},   
-				{
-					"name": "entity.name.type.convert.wresl",
-					"match": "\\b(convert)\\b"
-				},   
-				{
-					"name": "entity.name.type.name.wresl",
-					"match": "\\b(name)\\b"
-				},   
-				{
-					"name": "entity.name.type.type.wresl",
-					"match": "\\b(type)\\b"
-				},   
-				{
-					"name": "entity.name.type.desc.wresl",
-					"match": "\\b(desc)\\b"
-				},   
-				{
-					"name": "entity.name.type.bounds.wresl",
-					"match": "\\b(bounds)\\b"
-				},   
-				{
-					"name": "entity.name.type.penalty.wresl",
-					"match": "\\b(penalty)\\b"
-				},   
-				{
-					"name": "entity.name.type.month.wresl",
-					"match": "\\b(month)\\b"
-				},   
-				{
-					"name": "entity.name.type.wateryear.wresl",
-					"match": "\\b(wateryear)\\b"
-				},   
-				{
-					"name": "entity.name.type.always.wresl",
-					"match": "\\b(always)\\b"
-				},   
-				{
-					"name": "entity.name.type.never.wresl",
-					"match": "\\b(never)\\b"
-				},   
-				{
-					"name": "entity.name.type.constrain.wresl",
-					"match": "\\b(constrain)\\b"
-				},   
-				{
-					"name": "entity.name.type.include.wresl",
-					"match": "\\b(include)\\b"
-				},     
-				{
-					"name": "entity.name.type.lhs.wresl",
-					"match": "\\b(lhs)\\b"
-				},   
-				{
-					"name": "entity.name.type.rhs.wresl",
-					"match": "\\b(rhs)\\b"
-				},   
-				{
-					"name": "entity.name.type.lookup.wresl",
-					"match": "\\b(lookup)\\b"
-				},   
-				{
-					"name": "entity.name.type.select.wresl",
-					"match": "\\b(select)\\b"
-				},   
-				{
-					"name": "entity.name.type.from.wresl",
-					"match": "\\b(from)\\b"
-				},   
-				{
-					"name": "entity.name.type.where.wresl",
-					"match": "\\b(where)\\b"
-				},   
-				{
-					"name": "entity.name.type.given.wresl",
-					"match": "\\b(given)\\b"
-				},   
-				{
-					"name": "entity.name.type.use.wresl",
-					"match": "\\b(use)\\b"
-				},   
-				{
-					"name": "entity.name.type.sum.wresl",
-					"match": "\\b(sum)\\b"
-				},   
-				{
-					"name": "entity.name.type.max.wresl",
-					"match": "\\b(max)\\b"
-				},   
-				{
-					"name": "entity.name.type.min.wresl",
-					"match": "\\b(min)\\b"
-				},   
-				{
-					"name": "entity.name.type.abs.wresl",
-					"match": "\\b(abs)\\b"
+					"match": "\\$m",
+					"name": "constant.character.futurearray.wresl"
 				}
 			]
 		},
 		"strings": {
 			"name": "string.quoted.double.wresl",
 			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.wresl",
-					"match": "\\\\."
-				}
-			]
+			"end": "\""
 		},
 		"characters": {
 			"name": "string.quoted.single.wresl",
 			"begin": "'",
-			"end": "'",
-			"patterns": [
-				{
-					"name": "constant.character.escape.wresl",
-					"match": "\\\\."
-				}
-			]
+			"end": "'"
 		},
 		"comments": {
 			"name": "comment.wresl",
