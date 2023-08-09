@@ -1,193 +1,48 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "WRESL",
+	"scopeName": "source.wresl",
 	"patterns": [
-		{"include": "#define"},
-		{"include": "#goal"},
-		{"include": "#include"},
-		{"include": "#var"},
-		{"include": "#group"},
-		{"include": "#model"},
-		{"include": "#sequence"},
-		{"include": "#alias"},
-		{"include": "#parameters"},
-		{"include": "#control"},
-		{"include": "#constants"},
-		{"include": "#strings"},
 		{"include": "#comments"},
-		{"include": "#characters"}
+		{"include": "#strings"},
+		{"include": "#include-statement"},
+		{"include": "#preprocessed-expression"},
+		{"include": "#sequence-expression"},
+		{"include": "#model-statement"},
+		{"include": "#goal-statement"},
+		{"include": "#objective-statement"},
+		{"include": "#group-statement"},
+		{"include": "#variable-declaration"},
+		{"include": "#timeseries-declaration"},
+		{"include": "#define-declaration"},
+		{"include": "#expressions"}	
 	],
 	"repository": {
-		"define": {
-			"name": "meta.define.wresl",
-			"match": "(?i)\\b(define)(\\[\\w+\\])?(\\(fm\\))?\\s*(\\w+)",
-			"captures": {
-				"1": {"name": "storage.type.define.wresl"},
-				"2": {"name": "storage.modifier.scope.wresl"},
-				"3": {"name": "constant.character.define.wresl"},
-				"4": {"name": "entity.name.type.define.wresl"}
-			}
-		},
-		"include": {
-			"name": "meta.include.wresl",
-			"match": "(?i)\\b(include)(\\[\\w+\\])?\\s*(group)?\\s*(\\w+)?",
-			"captures": {
-				"1": {"name": "keyword.control.include.wresl"},
-				"2": {"name": "storage.modifier.scope.wresl"},
-				"3": {"name": "keyword.other.includedgroup.wresl"},
-				"4": {"name": "variable.parameter.includedgroup.wresl"}
-			}
-		},
-		"goal": {
-			"name": "meta.goal.wresl",
-			"match": "(?i)\\b(goal)(\\[\\w+\\])?(\\(fm\\))?\\s*(\\w+)",
-			"captures": {
-				"1": {"name": "storage.type.goal.wresl"},
-				"2": {"name": "storage.modifier.scope.wresl"},
-				"3": {"name": "constant.character.define.wresl"},
-				"4": {"name": "entity.name.type.define.wresl"}
-			}
-		},
-		"group": {
-			"name": "meta.group.wresl",
-			"match": "(?i)\\b(group)\\s*(\\w+)",
-			"captures": {
-				"1": {"name": "storage.type.group.wresl"},
-				"2": {"name": "entity.name.type.group.wresl"}
-			}
-		},
-		"model": {
-			"name": "meta.model.wresl",
-			"match": "(?i)\\b(model)\\s*(\\w+)",
-			"captures": {
-				"1": {"name": "storage.type.model.wresl"},
-				"2": {"name": "entity.name.type.model.wresl"}
-			}
-		},
-		"sequence": {
-			"name": "meta.sequence.wresl",
-			"begin": "(?i)\\b(sequence)\\s*(\\w+)\\s*\\{",
-			"end": "\\}",
-			"beginCaptures": {
-				"1": {"name": "storage.type.sequence.wresl"},
-				"2": {"name": "entity.name.type.sequence.wresl"}
-			},
+		"expressions": {
+			"name": "meta.expressions.wresl",
 			"patterns": [
-				{"include": "#condition"},
-				{"include": "#order"},
-				{"include": "#model"}
+				{"include": "#operators"},
+				{"include": "#intrinsic-functions"},
+				{"include": "#constants"},
+				{"include": "#default-variable"}
 			]
 		},
-		"condition":{
-			"match": "(?i)\\b(condition)",
-			"captures": {
-				"1": {"name": "keyword.other.condition.wresl"}
-			}
-		},
-		"order":{
-			"match": "(?i)\\b(order)\\s*(\\d+)",
-			"captures": {
-				"1": {"name": "keyword.other.order.wresl"},
-				"2": {"name": "constant.numeric.order.wresl"}
-			}
-		},
-		"alias":{
-			"match": "(?i)\\b(alias)\\s*(\\w+)(\\(\\$m.*\\))?",
-			"captures": {
-				"1": {"name": "keyword.other.define.alias.wresl"},
-				"2": {"name": "variable.parameter.alias.wresl"},
-				"3": {"name": "constant.character.futurearray.wresl"}
-			}
-		},
-		"var": {
-			"match": "(?i)\\b([ds]var)(\\(\\d+\\))?\\s*(\\w+)",
-			"captures": {
-				"1": {"name": "storage.type.var.wresl"},
-				"2": {"name": "constant.numeric.var.wresl"},
-				"3": {"name": "entity.name.type.var.wresl"}
-			}
-		},
-		"control": {
+		"operators": {
+			"name": "meta.operator.wresl",
 			"patterns": [
 				{
-					"name": "meta.side.wresl",
-					"match": "(?i)(lhs|rhs)",
-					"captures": {
-						"1": {"name": "keyword.control.side.wresl"}
-					}
+					"match": "\\+|\\*|\\/|(\\-\\s+)",
+					"name": "keyword.operator.arithemtic.wresl"
 				},
 				{
-					"name": "meta.case.wresl",
-					"begin": "(?i)(case)\\s*(\\w+)\\s*\\{",
-					"end": "\\}",
-					"beginCaptures": {
-						"1": {"name": "keyword.control.case.wresl"},
-						"2": {"name": "variable.parameter.case.wresl"}
-					},
-					"patterns": [
-						{"include": "#condition"},
-						{"include": "#control"},
-						{"include": "#parameters"}
-					]
+					"match": "((\\=)|(\\>)|(\\<))[^\\=]",
+					"name": "keyword.operator.logical.wresl"
+				},
+				{
+					"match": "(?i)(\\.and\\.)|(\\.or\\.)|(\\.not\\.)|(\\.ne\\.)|(\\=\\=)|(\\>\\=)|(\\<\\=)",
+					"name": "constant.language.operator.logical.wresl"
 				}
 			]
-		},
-		"parameters": {
-			"patterns": [
-				{
-					"name": "meta.value.wresl",
-					"match": "(?i)\\b(value)\\s*(\\w+)(\\(\\$m\\))?",
-					"captures": {
-						"1": {"name": "keyword.other.value.wresl"},
-						"2": {"name": "variable.parameter.value.wresl"},
-						"3": {"name": "constant.character.futurearray.wresl"}
-					}
-				},
-				{
-					"name": "meta.timeseries.wresl",
-					"match": "(?i)\\b(timeseries)\\b",
-					"captures": {
-						"1": {"name": "keyword.other.timeseries.wresl"}
-					}
-				},
-				{
-					"name": "meta.kind.wresl",
-					"match": "(?i)\\b(kind)\\b",
-					"captures": {
-						"1": {"name": "keyword.other.kind.wresl"}
-					}
-				},
-				{
-					"name": "meta.units.wresl",
-					"match": "(?i)\\b(units)\\b",
-					"captures": {
-						"1": {"name": "keyword.other.units.wresl"}
-					}
-				},
-				{
-					"name": "meta.specifiedbound.wresl",
-					"match": "(?i)(upper|lower)\\s*(unbounded|\\d+\\.?\\d*)",
-					"captures": {
-						"1": {"name": "keyword.other.bound.wresl"},
-						"2": {"name": "constant.numeric.bound.wresl"}
-					}
-				},
-				{
-					"name": "meta.stdbound.wresl",
-					"match": "(?i)\\b(std)\\b",
-					"captures": {
-						"1": {"name": "constant.numeric.bound.wresl"}
-					}
-				},
-				{
-					"name": "meta.penalty.wresl",
-					"match": "(?i)\\b(penalty)\\s*(\\d\\.?\\d*)",
-					"captures": {
-						"1": {"name": "keyword.other.penalty.wresl"},
-						"2": {"name": "constant.numeric.penalty.wresl"}
-					}
-				}
-			]	
 		},
 		"constants":{
 			"name": "meta.constant.wresl",
@@ -195,25 +50,419 @@
 				{
 					"match": "(?i)(prev)?(oct|nov|dec|jan|feb|mar|apr|may|jun|jul|aug|sept)",
 					"captures": {
-						"1": {"name": "support.constant.previous.wresl"},
-						"2": {"name": "support.constant.month.wresl"}
+						"1": {"name": "constant.language.previous.wresl"},
+						"2": {"name": "constant.language.month.wresl"}
 					}
 				},
 				{
-					"match": "\\$m",
+					"match": "(?i)\\$m",
 					"name": "constant.character.futurearray.wresl"
+				},
+				{
+					"match": "(?i)(1mon|1day)",
+					"name": "constant.numeric.timestep.wresl"
+				},
+				{
+					"match": "\\b\\-?\\d+\\.?\\d*",
+					"name": "constant.numeric.wresl"
+				},
+				{
+					"match": "(?i)daysin|month|wateryear",
+					"name": "constant.language.intrinsic.wresl"
+				},
+				{
+					"match": "(?i)global|local",
+					"name": "constant.language.scope.wresl"
+				},
+				{
+					"match": "(?i)unbounded",
+					"name": "constant.language.bounds.wresl"
+				},
+				{
+					"match": "(?i)always",
+					"name": "constant.language.always.wresl"
+				},
+				{
+					"match": "(?i)(dll|f90|lf90)",
+					"name": "constant.language.external-function.wresl"
+				}
+			]
+		},
+		"intrinsic-functions": {
+			"name": "meta.funcions.instrinsic.wresl",
+			"patterns": [
+				{
+					"begin": "(?i)\\b(cfs_taf|taf_cfs)\\(\\b",
+					"end": "\\)",
+					"beginCaptures": {
+						"1": {"name": "support.function.intrinsic.conversion.wresl"}
+					},
+					"patterns": [{"include": "#expressions"}]
+				},
+				{
+					"begin": "(?i)\\b(pow|mod)\\(\\b",
+					"end": "\\)",
+					"beginCaptures": {
+						"1": {"name": "support.function.intrinsic.binary.wresl"}
+					},
+					"patterns": [{"include": "#expressions"}]
+				},
+				{
+					"begin": "(?i)\\b(abs|int|real|exp|log|log10|sqrt|max|min|round)\\(\\b",
+					"end": "\\)",
+					"beginCaptures": { 
+						"1": {"name": "support.function.intrinsic.unary.wresl"}
+					},
+					"patterns": [{"include": "#expressions"}]
+				}
+			]
+		},
+		"include-statement": {
+			"name": "meta.include-statement.wresl",
+			"patterns": [
+				{
+					"match": "(?i)\\b(include)",
+					"name": "keyword.control.include.wresl"
+				}
+			]
+		},
+		"preprocessed-expression": {
+			"name": "meta.preprocessed-expression.wresl",
+			"patterns": [
+				{
+					"match": "(?i)\\b(initial)\\b",
+					"name": "keyword.control.initial.wresl"
+				},
+				{
+					"match": "(?i)\\b(if|elseif|else)\\b",
+					"name": "keyword.control.ifs.wresl"
+				}
+			]
+
+		},
+		"sequence-expression": {
+			"name": "meta.sequence-expression.wresl",
+			"begin": "(?i)\\b(sequence)\\s+(\\w{1,32})\\s*{",
+			"end": "}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.sequence.wresl"},
+				"2": {"name": "entity.name.section.wresl"}
+			},
+			"patterns": [
+				{
+					"match": "(?i)\\b(model)\\s+(\\w{1,32})",
+					"captures": {
+						"1": {"name": "variable.parameter.sequence.model.wresl"},
+						"2": {"name": "entity.name.section.order.wresl"}
+					}
+				},
+				{
+					"match": "(?i)\\b(order)\\s+(\\d+)",
+					"captures": {
+						"1": {"name": "variable.parameter.sequence.order.wrsel"},
+						"2": {"name": "entity.name.section.order.wresl"}
+					}
+				},
+				{
+					"match": "(?i)\\b(timestep)\\b",
+					"name": "variable.parameter.sequence.timestep.wresl"
+				},
+				{"include": "#condition-statement"},
+				{"include": "#expressions"},
+				{"include": "#default-variable"},
+				{"include": "#comments"}
+			]
+		},
+		"goal-statement": {
+			"name": "meta.goal-statement.wresl",
+			"begin": "(?i)\\b(goal)(\\[(local|global)\\])?(\\(.*\\))?\\s+(\\w{1,32})\\s+\\{",
+			"end": "\\}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.goal.wresl"},
+				"2": {"name": "meta.language.scope.wresl"},
+				"3": {"name": "constant.language.scope.wresl"},
+				"4": {"name": "constant.numeric.futurearray.wresl"},
+				"5": {"name": "entity.name.type.wresl"}
+			},
+			"patterns": [
+				{
+					"name": "keyword.control.goal-penalty.wresl",
+					"match": "(?i)\\b(lhs\\s*[\\<\\>]\\s*rhs)"
+				},
+				{
+					"name": "constant.language.penalty-type.wresl",
+					"match": "(?i)\\b(constrain|penalty)\\s+"
+				},
+				{
+					"name": "meta.goal-simple.wresl",
+					"match": "(?i)\\b([lr]hs)",
+					"captures": {
+						"1": {
+							"name": "variable.parameter.goal.side.wresl"
+						}
+					}
+				},
+				{"include": "#case-statement"},
+				{"include": "#expressions"}
+			]
+		},
+		"variable-declaration": {
+			"name": "meta.variable-declaration.wresl",
+			"begin": "(?i)\\b([sd]var|alias)(\\(.*\\))?\\s+(\\w{1,32})\\s*{",
+			"end": "}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.variable.wresl"},
+				"2": {"name": "constant.numeric.futurearray.wresl"},
+				"3": {"name": "entity.name.section.wresl"}
+			},
+			"patterns": [
+				{"include": "#declaration-standard"},
+				{"include": "#bounds-specification"},
+				{"include": "#lookup-definition"},
+				{"include": "#case-statement"},
+				{"include": "#expressions"},
+				{"include": "#strings"},
+				{"include": "#comments"}
+			]
+		},
+		"timeseries-declaration": {
+			"name": "meta.timeseries-declaration.wresl",
+			"begin": "(?i)\\b(timeseries)(\\(.*\\))?\\s+(\\w{1,32})\\s*{",
+			"end": "}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.timeseries.wresl"},
+				"2": {"name": "constant.numeric.futurearray.wresl"},
+				"3": {"name": "entity.name.section.wresl"}
+			},
+			"patterns": [
+				{"include": "#declaration-standard"},
+				{"include": "#expressions"},
+				{"include": "#strings"},
+				{"include": "#comments"}
+			]
+		},
+		"define-declaration": {
+			"name": "meta.define-declaration.wresl",
+			"begin": "(?i)\\b(define)(\\[(local|global)\\])?(\\(.*\\))?\\s+(\\w{1,32})\\s*{",
+			"end": "}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.define.wresl"},
+				"2": {"name": "meta.language.scope.wresl"},
+				"3": {"name": "constant.language.scope.wresl"},
+				"4": {"name": "constant.numeric.futurearray.wresl"},
+				"5": {"name": "entity.name.section.wresl"}
+			},
+			"patterns": [
+				{"include": "#declaration-standard"},
+				{"include": "#bounds-specification"},
+				{"include": "#lookup-definition"},
+				{"include": "#case-statement"},
+				{"include": "#expressions"},
+				{"include": "#strings"},
+				{"include": "#comments"}
+			]
+		},
+		"case-statement": {
+			"name": "meta.case.wresl",
+			"begin": "(?i)\\b(case)\\s+(\\w+{1,32})\\s+{",
+			"end": "}",
+			"beginCaptures": {
+				"1": {"name": "keyword.control.case.wresl"},
+				"2": {"name": "entity.name.section.case.wresl"}
+			},
+			"patterns": [
+				{"include": "#condition-statement"},
+				{"include": "#declaration-standard"},
+				{
+					"name": "variable.parameter.variable-declaration.value.wresl",
+					"match": "(?i)\\b(rhs)"
+				},
+				{"include": "#expressions"},
+				{"include": "#strings"}
+			]
+		},
+		"objective-statement": {
+			"name": "meta.objective.wresl",
+			"begin": "(?i)\\b(objective)\\s+(\\w+{1,32})\\s+{",
+			"end": "}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.objective.wresl"},
+				"2": {"name": "entity.name.class.objective.wresl"}
+			},
+			"patterns": [
+				{
+					"name": "meta.standard-objective.wresl",
+					"begin": "\\[(\\w{1,32})",
+					"beginCaptures": {
+						"1": {"name": "entity.name.class.objective-variable.wresl"}
+					},
+					"end": "\\]",
+					"patterns": [{"include": "#expressions"}]
+				},
+				{
+					"match": "(?i)\\b(weight)",
+					"name": "variable.parameter.objective.weight.wresl"
+					
+				},
+				{
+					"match": "(?i)\\b(variable)(\\s+(\\w{1,32}))*",
+					"captures": {
+						"1": {"name": "variable.parameter.objective.weight.wresl"},
+						"0": {"name": "entity.name.class.objective-variable.wresl"}
+					}
+				},
+				{"include": "#expressions"},
+				{"include": "#strings"},
+				{"include": "#comments"}
+			]
+		},
+		"group-statement": {
+			"name": "meta.group.wresl",
+			"begin": "(?i)\\b(group)\\s+(\\w+{1,32})\\s+{",
+			"end": "}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.group.wresl"},
+				"2": {"name": "entity.name.class.group.wresl"}
+			},
+			"patterns": [
+				{"include": "#include-statement"},
+				{"include": "#goal-statement"},
+				{"include": "#objective-statement"},
+				{"include": "#variable-declaration"},
+				{"include": "#timeseries-declaration"},
+				{"include": "#define-declaration"},
+				{"include": "#expressions"},
+				{"include": "#strings"},
+				{"include": "#comments"}
+			]
+		},
+		"model-statement": {
+			"name": "meta.model.wresl",
+			"begin": "(?i)\\b(model)\\s+(\\w+{1,32})\\s+{",
+			"end": "}",
+			"beginCaptures": {
+				"1": {"name": "storage.type.model.wresl"},
+				"2": {"name": "entity.name.class.model.wresl"}
+			},
+			"patterns": [
+				{"include": "#include-statement"},
+				{"include": "#goal-statement"},
+				{"include": "#objective-statement"},
+				{"include": "#variable-declaration"},
+				{"include": "#timeseries-declaration"},
+				{"include": "#define-declaration"},
+				{"include": "#expressions"},
+				{"include": "#strings"},
+				{"include": "#comments"}
+			]
+		},
+		"lookup-definition": {
+			"name": "meta.lookup.wresl",
+			"patterns": [
+				{
+					"match": "(?i)\\b(select)\\s+(\\w+)\\s+",
+					"captures": {
+						"1": {"name": "keyword.control.variable-declaration.lookup.select.wresl"},
+						"2": {"name": "entity.name.class.variable-declaration.lookup.result.wresl"}
+					}
+				},
+				{
+					"match": "(?i)\\b(from)\\s+(\\w+)\\s+",
+					"captures": {
+						"1": {"name": "keyword.control.variable-declaration.lookup.from.wresl"},
+						"2": {"name": "entity.name.class.variable-declaration.lookup.table.wresl"}
+					}
+				},
+				{
+					"match": "(?i)\\b(given|where)\\b",
+					"captures": {
+						"1": {"name": "keyword.control.variable-declaration.lookup.filter.wresl"}
+					}
+				},
+				{
+					"match": "(?i)\\b(use)\\s+(linear|min|max)",
+					"captures": {
+						"1": {"name": "keyword.control.variable-declaration.lookup.use.wresl"},
+						"2": {"name": "constant.language.lookup.use.wresl"}
+					}
+				}
+			]
+		},
+		"bounds-specification": {
+			"name": "meta.bounds.wresl",
+			"patterns": [
+				{
+					"match": "(?i)\\b(lower|upper)\\b",
+					"captures": {
+						"1": {"name": "variable.parameter.variable-declaration.bounds.wrsel"}
+					}
+				},
+				{
+					"match": "(?i)\\b(std)\\b",
+					"captures": {
+						"1": {"name": "storage.type.variable-declaration.wresl"}
+					}
+				}
+			]
+		},
+		"condition-statement": {
+			"match": "(?i)\\b(condition)\\b",
+			"name": "variable.parameter.sequence.condition.wresl"
+		},
+		"declaration-standard": {
+			"name": "meta.declaration-standard.wresl",
+			"patterns": [
+				{
+					"match": "(?i)\\b(value)\\b",
+					"captures": {
+						"1": {"name": "variable.parameter.variable-declaration.value.wresl"}
+					}
+				},
+				{
+					"match": "(?i)\\b(integer|binary|timeseries|alias|external)\\b",
+					"captures": {
+						"1": {"name": "storage.type.variable-declaration.wresl"}
+					}
+				},
+				{
+					"match": "(?i)\\b(lhs)",
+					"name": "variable.parameter.variable-declaration.value.wresl"
+				},
+				{
+					"match": "(?i)\\b(kind)\\b",
+					"captures": {
+						"1": {"name": "variable.parameter.declaration.kind.wresl"}
+					}
+				},
+				{
+					"match": "(?i)\\b(units)\\b",
+					"captures": {
+						"1": {"name": "variable.parameter.declaration.units.wrsel"}
+					}
+				},
+				{
+					"match": "(?i)\\b(convert)\\b",
+					"name": "variable.parameter.declaration.convert.wresl"
+				},
+				{
+					"match": "(?i)\\b(sum)",
+					"name": "support.function.sum.wresl"
 				}
 			]
 		},
 		"strings": {
-			"name": "string.quoted.double.wresl",
-			"begin": "\"",
-			"end": "\""
-		},
-		"characters": {
-			"name": "string.quoted.single.wresl",
-			"begin": "'",
-			"end": "'"
+			"patterns": [
+				{
+					"name": "string.quoted.double.wresl",
+					"begin": "\"",
+					"end": "\""
+				},
+				{
+					"name": "string.quoted.single.wresl",
+					"begin": "'",
+					"end": "'"
+				}
+			]
 		},
 		"comments": {
 			"name": "comment.wresl",
@@ -234,7 +483,14 @@
 					"end": "\\*/"
 				}
 			]
+		},
+		"default-variable": {
+			"patterns": [
+				{
+					"match": "\\w+",
+					"name": "variable.other.default.wresl"	
+				}
+			]
 		}
-	},
-	"scopeName": "source.wresl"
+	}
 }
