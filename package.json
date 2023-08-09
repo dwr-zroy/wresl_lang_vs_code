@@ -26,6 +26,11 @@
       "language": "wresl",
       "scopeName": "source.wresl",
       "path": "./syntaxes/wresl.tmLanguage.json"
+    }],
+    "themes": [{
+      "label": "WRESL-Dark",
+      "uiTheme": "vs-dark",
+      "path": "./themes/wresl_dark.json"
     }]
   }
 }
