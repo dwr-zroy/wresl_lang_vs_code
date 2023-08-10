@@ -83,6 +83,10 @@
 					"name": "constant.language.always.wresl"
 				},
 				{
+					"match": "(?i)never",
+					"name": "constant.language.never.wresl"
+				},
+				{
 					"match": "(?i)(dll|f90|lf90)",
 					"name": "constant.language.external-function.wresl"
 				}
@@ -159,7 +163,7 @@
 				{
 					"match": "(?i)\\b(order)\\s+(\\d+)",
 					"captures": {
-						"1": {"name": "variable.parameter.sequence.order.wrsel"},
+						"1": {"name": "variable.parameter.sequence.order.wresl"},
 						"2": {"name": "entity.name.section.order.wresl"}
 					}
 				},
@@ -399,7 +403,7 @@
 				{
 					"match": "(?i)\\b(lower|upper)\\b",
 					"captures": {
-						"1": {"name": "variable.parameter.declaration.bounds.wrsel"}
+						"1": {"name": "variable.parameter.declaration.bounds.wresl"}
 					}
 				},
 				{
@@ -442,7 +446,7 @@
 				{
 					"match": "(?i)\\b(units)\\b",
 					"captures": {
-						"1": {"name": "variable.parameter.declaration.units.wrsel"}
+						"1": {"name": "variable.parameter.declaration.units.wresl"}
 					}
 				},
 				{

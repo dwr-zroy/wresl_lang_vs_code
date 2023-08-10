@@ -16,16 +16,16 @@
         {
             "scope": [
                 "variable.parameter.sequence.model.wresl",
-                "variable.parameter.sequence.order.wrsel",
+                "variable.parameter.sequence.order.wresl",
                 "variable.parameter.sequence.condition.wresl",
                 "variable.parameter.sequence.timestep.wresl",
                 "variable.parameter.goal.side.wresl",
                 "variable.parameter.objective.weight.wresl",
                 "variable.parameter.declaration.value.wresl",
-                "variable.parameter.declaration.bounds.wrsel",
+                "variable.parameter.declaration.bounds.wresl",
                 "variable.parameter.declaration.kind.wresl",
-                "variable.parameter.declaration.units.wrsel",
-                "variable.parameter.declaration.convert.wrsel"
+                "variable.parameter.declaration.units.wresl",
+                "variable.parameter.declaration.convert.wresl"
             ],
             "settings": {
                 "foreground": "#9CDCFE",
@@ -65,6 +65,7 @@
                 "constant.language.lookup.use.wresl",
                 "constant.language.penalty-type.wresl",
                 "constant.language.always.wresl",
+                "constant.language.never.wresl",
                 "constant.language.external-function.wresl",
                 "constant.language.futurearray.wresl"
             ],
