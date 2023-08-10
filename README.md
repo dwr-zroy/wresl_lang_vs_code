@@ -6,4 +6,4 @@ Ths extension provides simple syntax highlighting and code snippets to assist CA
 
 WRIMS 2 | VS Code with WRESL Extension
 :---:|:---:
-![](https://dwrrhapp0179.ad.water.ca.gov/gitea/zachary.roy/wresl_lang_vs_code/images/example_WRIMS.png)  |  ![](https://dwrrhapp0179.ad.water.ca.gov/gitea/zachary.roy/wresl_lang_vs_code/images/example_VS_Code.png)
+![](https://github.com/dwr-zroy/wresl_lang_vs_code/images/example_WRIMS.png)  |  ![](https://github.com/dwr-zroy/wresl_lang_vs_code/images/example_VS_Code.png)
