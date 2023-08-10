@@ -8,12 +8,13 @@
   },
   "displayName": "WRESL",
   "description": "Water Resources Simultion Language Highlighting",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "engines": {
     "vscode": "^1.79.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Snippets"
   ],
   "contributes": {
     "languages": [{
@@ -34,9 +35,15 @@
         "path": "./themes/wresl_dark.json"
       },
       {
-        "label": "WRESL",
+        "label": "wresl",
         "uiTheme": "vs",
         "path": "./themes/wresl_light.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "wresl",
+        "path": "./snippets/wresl.json"
       }
     ]
   }

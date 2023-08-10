@@ -1,0 +1,182 @@
+{
+	"cfs to TAF conversion": {
+		"prefix": "cfs_taf",
+		"body": ["cfs_taf($1)$0cfs"],
+		"description": "Function to get conversion factor for cfs to TAF"
+	},
+    "TAF to cfs conversion": {
+		"prefix": "taf_cfs",
+		"body": ["taf_cfs($1)$0"],
+		"description": "Function to get conversion factor for TAF to cfs"
+	},
+    "Logical NOT": {
+        "prefix": ".not.",
+        "body": [".not.$0"],
+        "description": "Logical operator NOT"
+    },
+    "Logical AND": {
+        "prefix": ".and.",
+        "body": [".and.$0"],
+        "description": "Logical operator AND"
+    },
+    "Logical OR": {
+        "prefix": ".or.",
+        "body": [".or.$0"],
+        "description": "Logical operator or"
+    },
+    "Comparison NE": {
+        "prefix": ".ne.",
+        "body": [".ne.$0"],
+        "description": "Comparison operator NE"
+    },
+    "Keyword daysin": {
+        "prefix": "daysin",
+        "body": ["daysin$0"],
+        "description": "Keyword daysin, returns number of days in the current time step"
+    },
+    "Keyword month": {
+        "prefix": "month",
+        "body": ["month$0"],
+        "description": "Keyword month, (October = 1, September = 12)"
+    },
+    "Keyword wateryear": {
+        "prefix": "wateryear",
+        "body": ["wateryear$0"],
+        "description": "Keyword wateryear, returns the current four-digi water year"
+    },
+    "Sequence Statement": {
+        "prefix": "sequence",
+        "body": [
+            "sequence $1 {",
+            "    model     $2",
+            "    condition $0",
+            "    order     $3",
+            "}"
+        ],
+        "description": "Sequence statement (without timestep specification)"
+    },
+    "Model Statement": {
+        "prefix": "model",
+        "body": [
+            "model $1 {",
+            "    $0",
+            "}"
+        ],
+        "description": "Model statement"
+    },
+    "Include String": {
+        "prefix": "include",
+        "body": [
+            "include '$0'"
+        ],
+        "description": "Include statement"
+    },
+    "Include Local": {
+        "prefix": "include",
+        "body": [
+            "include[local] $0"
+        ],
+        "description": "Include statement"
+    },
+    "Timeseries Definition": {
+        "prefix": "timeseries",
+        "body": [
+            "timeseries $1 {",
+            "    kind  '$2'",
+            "    units '$3'",
+            "}"
+        ],
+        "description": "Timeseries definition"
+    },
+    "Decision Variable Definition": {
+        "prefix": "dvar",
+        "body": [
+            "dvar $1 {",
+            "    ${2:std}",
+            "    kind  '$3'",
+            "    units '$4'",
+            "}"
+        ],
+        "description": "Decision Variable definition"
+    },
+    "State Variable Definition": {
+        "prefix": "svar",
+        "body": [
+            "svar $1 {",
+            "    ${2:std}",
+            "    kind  '$3'",
+            "    units '$4'",
+            "}"
+        ],
+        "description": "State Variable definition"
+    },
+    "Lookup State Variable Definition - given": {
+        "prefix": "svar",
+        "body": [
+            "svar $1 {",
+            "    select  $2",
+            "    from    $3",
+            "    given   $4",
+            "    use     ${5:linear}",
+            "}"
+        ],
+        "description": "Lookup State Variable definition"
+    },
+    "Lookup State Variable Definition - where": {
+        "prefix": "svar",
+        "body": [
+            "svar $1 {",
+            "    select  $2",
+            "    from    $3",
+            "    where   $4",
+            "}"
+        ],
+        "description": "Lookup State Variable definition"
+    },
+    "Empty State Variable Definition": {
+        "prefix": "svar",
+        "body": [
+            "svar $1 {",
+            "    $2",
+            "}"
+        ],
+        "description": "Empty State Variable definition"
+    },
+    "Case Statement": {
+        "prefix": "case",
+        "body": [
+            "case $1 {",
+            "    condition $2",
+            "    ${3:value} $4",
+            "}"
+        ]
+    },
+    "Goal Statement": {
+        "prefix": "goal",
+        "body": [
+            "goal $1 {",
+            "    lhs $2",
+            "    $0",
+            "}"
+        ]
+    },
+    "Goal Case Statement": {
+        "prefix": "case",
+        "body": [
+            "case $1 {",
+            "    condition $2",
+            "    rhs $4",
+            "    $0",
+            "}"
+        ]
+    },
+    "Goal Penalty - Greater Than": {
+        "prefix": "lhs > rhs",
+        "body": ["lhs > rhs ${1:penalty} $0"]
+    },
+    "Goal Penalty - Less Than": {
+        "prefix": "lhs < rhs",
+        "body": ["lhs < rhs ${1:penalty} $0"]
+    }
+
+}
