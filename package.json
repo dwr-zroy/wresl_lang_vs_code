@@ -4,7 +4,7 @@
   "name": "wresl",
   "repository": {
     "type": "gitea",
-    "url": "http://dwrrhapp0179.ad.water.ca.gov/gitea/zachary.roy/wresl_lang_vs_code"
+    "url": "https://github.com/dwr-zroy/wresl_lang_vs_code"
   },
   "displayName": "WRESL",
   "description": "Water Resources Simultion Language Highlighting",
