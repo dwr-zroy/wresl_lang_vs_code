@@ -1,6 +1,6 @@
 {
-    "name":"WRESL-Dark",
-    "include":"./dark_modern.json",
+    "name":"WRESL",
+    "include":"./light_modern.json",
     "tokenColors":[
         {
             "scope": [
@@ -10,7 +10,7 @@
                 "support.function.intrinsic.unary.wresl"
             ],
             "settings": {
-                "foreground": "#DCDCAA"
+                "foreground": "#795E26"
             }
         },
         {
@@ -28,7 +28,7 @@
                 "variable.parameter.declaration.convert.wrsel"
             ],
             "settings": {
-                "foreground": "#9CDCFE",
+                "foreground": "#001080",
                 "fontStyle": "italic"
             }
         },
@@ -37,7 +37,7 @@
                 "variable.other.default.wresl"
             ],
             "settings": {
-                "foreground": "#9CDCFE"
+                "foreground": "#001080"
             }
         },
         {
@@ -57,7 +57,7 @@
                 "entity.name.section.order.wresl"
             ],
             "settings": {
-                "foreground": "#4EC9B0"
+                "foreground": "#267f99"
             }
         },
         {
@@ -69,14 +69,14 @@
                 "constant.language.futurearray.wresl"
             ],
             "settings": {
-                "foreground": "#B5CEA8"
+                "foreground": "#AF00DB"
             }
         }
     ],
     "semanticTokenColors":{
         "newOperator":"#C586C0",
         "stringLiteral":"#CE9178",
-        "customLiteral":"#DCDCAA",
+        "customLiteral":"#795E26",
         "numberLiteral":"#B5CEA8"
     }
 }
