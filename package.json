@@ -19,7 +19,7 @@
     "languages": [{
       "id": "wresl",
       "aliases": ["WRESL", "wresl"],
-      "extensions": [".wresl", ".table"],
+      "extensions": [".wresl"],
       "configuration": "./language-configuration.json"
     }],
     "grammars": [{

@@ -35,7 +35,7 @@
 					"name": "keyword.operator.arithemtic.wresl"
 				},
 				{
-					"match": "((\\=)|(\\>)|(\\<))[^\\=]",
+					"match": "((\\=)|(\\>)|(\\<))[\\b\\s]",
 					"name": "keyword.operator.logical.wresl"
 				},
 				{
@@ -56,7 +56,7 @@
 				},
 				{
 					"match": "(?i)\\$m",
-					"name": "constant.character.futurearray.wresl"
+					"name": "constant.language.futurearray.wresl"
 				},
 				{
 					"match": "(?i)(1mon|1day)",
@@ -146,14 +146,14 @@
 			"end": "}",
 			"beginCaptures": {
 				"1": {"name": "storage.type.sequence.wresl"},
-				"2": {"name": "entity.name.section.wresl"}
+				"2": {"name": "entity.name.section.sequence.wresl"}
 			},
 			"patterns": [
 				{
 					"match": "(?i)\\b(model)\\s+(\\w{1,32})",
 					"captures": {
 						"1": {"name": "variable.parameter.sequence.model.wresl"},
-						"2": {"name": "entity.name.section.order.wresl"}
+						"2": {"name": "entity.name.class.model.wresl"}
 					}
 				},
 				{
@@ -168,8 +168,9 @@
 					"name": "variable.parameter.sequence.timestep.wresl"
 				},
 				{"include": "#condition-statement"},
-				{"include": "#expressions"},
 				{"include": "#default-variable"},
+				{"include": "#expressions"},
+				{"include": "#strings"},
 				{"include": "#comments"}
 			]
 		},
@@ -182,7 +183,7 @@
 				"2": {"name": "meta.language.scope.wresl"},
 				"3": {"name": "constant.language.scope.wresl"},
 				"4": {"name": "constant.numeric.futurearray.wresl"},
-				"5": {"name": "entity.name.type.wresl"}
+				"5": {"name": "entity.name.class.goal.wresl"}
 			},
 			"patterns": [
 				{
@@ -203,7 +204,9 @@
 					}
 				},
 				{"include": "#case-statement"},
-				{"include": "#expressions"}
+				{"include": "#expressions"},
+				{"include": "#strings"},
+				{"include": "#comments"}
 			]
 		},
 		"variable-declaration": {
@@ -213,7 +216,7 @@
 			"beginCaptures": {
 				"1": {"name": "storage.type.variable.wresl"},
 				"2": {"name": "constant.numeric.futurearray.wresl"},
-				"3": {"name": "entity.name.section.wresl"}
+				"3": {"name": "entity.name.type.variable.wresl"}
 			},
 			"patterns": [
 				{"include": "#declaration-standard"},
@@ -232,7 +235,7 @@
 			"beginCaptures": {
 				"1": {"name": "storage.type.timeseries.wresl"},
 				"2": {"name": "constant.numeric.futurearray.wresl"},
-				"3": {"name": "entity.name.section.wresl"}
+				"3": {"name": "entity.name.type.timeseries.wresl"}
 			},
 			"patterns": [
 				{"include": "#declaration-standard"},
@@ -250,7 +253,7 @@
 				"2": {"name": "meta.language.scope.wresl"},
 				"3": {"name": "constant.language.scope.wresl"},
 				"4": {"name": "constant.numeric.futurearray.wresl"},
-				"5": {"name": "entity.name.section.wresl"}
+				"5": {"name": "entity.name.type.define.wresl"}
 			},
 			"patterns": [
 				{"include": "#declaration-standard"},
@@ -268,22 +271,24 @@
 			"end": "}",
 			"beginCaptures": {
 				"1": {"name": "keyword.control.case.wresl"},
-				"2": {"name": "entity.name.section.case.wresl"}
+				"2": {"name": "entity.name.type.case.wresl"}
 			},
 			"patterns": [
 				{"include": "#condition-statement"},
 				{"include": "#declaration-standard"},
 				{
-					"name": "variable.parameter.variable-declaration.value.wresl",
+					"name": "variable.parameter.declaration.value.wresl",
 					"match": "(?i)\\b(rhs)"
 				},
+				{"include": "#lookup-definition"},
 				{"include": "#expressions"},
-				{"include": "#strings"}
+				{"include": "#strings"},
+				{"include": "#comments"}
 			]
 		},
 		"objective-statement": {
 			"name": "meta.objective.wresl",
-			"begin": "(?i)\\b(objective)\\s+(\\w+{1,32})\\s+{",
+			"begin": "(?i)\\b(objective)\\s+(\\w+{1,32})\\s*\\=?\\s*{",
 			"end": "}",
 			"beginCaptures": {
 				"1": {"name": "storage.type.objective.wresl"},
@@ -294,7 +299,7 @@
 					"name": "meta.standard-objective.wresl",
 					"begin": "\\[(\\w{1,32})",
 					"beginCaptures": {
-						"1": {"name": "entity.name.class.objective-variable.wresl"}
+						"1": {"name": "entity.name.class.objective.variable.wresl"}
 					},
 					"end": "\\]",
 					"patterns": [{"include": "#expressions"}]
@@ -308,7 +313,7 @@
 					"match": "(?i)\\b(variable)(\\s+(\\w{1,32}))*",
 					"captures": {
 						"1": {"name": "variable.parameter.objective.weight.wresl"},
-						"0": {"name": "entity.name.class.objective-variable.wresl"}
+						"0": {"name": "entity.name.class.objective.variable.wresl"}
 					}
 				},
 				{"include": "#expressions"},
@@ -362,27 +367,27 @@
 				{
 					"match": "(?i)\\b(select)\\s+(\\w+)\\s+",
 					"captures": {
-						"1": {"name": "keyword.control.variable-declaration.lookup.select.wresl"},
-						"2": {"name": "entity.name.class.variable-declaration.lookup.result.wresl"}
+						"1": {"name": "keyword.control.declaration.lookup.select.wresl"},
+						"2": {"name": "entity.name.class.lookup.result.wresl"}
 					}
 				},
 				{
 					"match": "(?i)\\b(from)\\s+(\\w+)\\s+",
 					"captures": {
-						"1": {"name": "keyword.control.variable-declaration.lookup.from.wresl"},
-						"2": {"name": "entity.name.class.variable-declaration.lookup.table.wresl"}
+						"1": {"name": "keyword.control.declaration.lookup.from.wresl"},
+						"2": {"name": "entity.name.class.lookup.table.wresl"}
 					}
 				},
 				{
 					"match": "(?i)\\b(given|where)\\b",
 					"captures": {
-						"1": {"name": "keyword.control.variable-declaration.lookup.filter.wresl"}
+						"1": {"name": "keyword.control.declaration.lookup.filter.wresl"}
 					}
 				},
 				{
 					"match": "(?i)\\b(use)\\s+(linear|min|max)",
 					"captures": {
-						"1": {"name": "keyword.control.variable-declaration.lookup.use.wresl"},
+						"1": {"name": "keyword.control.declaration.lookup.use.wresl"},
 						"2": {"name": "constant.language.lookup.use.wresl"}
 					}
 				}
@@ -394,13 +399,13 @@
 				{
 					"match": "(?i)\\b(lower|upper)\\b",
 					"captures": {
-						"1": {"name": "variable.parameter.variable-declaration.bounds.wrsel"}
+						"1": {"name": "variable.parameter.declaration.bounds.wrsel"}
 					}
 				},
 				{
 					"match": "(?i)\\b(std)\\b",
 					"captures": {
-						"1": {"name": "storage.type.variable-declaration.wresl"}
+						"1": {"name": "storage.type.declaration.wresl"}
 					}
 				}
 			]
@@ -415,18 +420,18 @@
 				{
 					"match": "(?i)\\b(value)\\b",
 					"captures": {
-						"1": {"name": "variable.parameter.variable-declaration.value.wresl"}
+						"1": {"name": "variable.parameter.declaration.value.wresl"}
 					}
 				},
 				{
 					"match": "(?i)\\b(integer|binary|timeseries|alias|external)\\b",
 					"captures": {
-						"1": {"name": "storage.type.variable-declaration.wresl"}
+						"1": {"name": "storage.type.declaration.wresl"}
 					}
 				},
 				{
 					"match": "(?i)\\b(lhs)",
-					"name": "variable.parameter.variable-declaration.value.wresl"
+					"name": "variable.parameter.declaration.value.wresl"
 				},
 				{
 					"match": "(?i)\\b(kind)\\b",

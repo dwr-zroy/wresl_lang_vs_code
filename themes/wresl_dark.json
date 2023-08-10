@@ -1,10 +1,13 @@
 {
     "name":"WRESL-Dark",
-    "include":"./dark_vs.json",
+    "include":"./dark_modern.json",
     "tokenColors":[
         {
             "scope": [
-                "support.function"
+                "support.function.sum.wresl",
+                "support.function.intrinsic.conversion.wresl",
+                "support.function.intrinsic.binary.wresl",
+                "support.function.intrinsic.unary.wresl"
             ],
             "settings": {
                 "foreground": "#DCDCAA"
@@ -12,7 +15,17 @@
         },
         {
             "scope": [
-                "variable.parameter"
+                "variable.parameter.sequence.model.wresl",
+                "variable.parameter.sequence.order.wrsel",
+                "variable.parameter.sequence.condition.wresl",
+                "variable.parameter.sequence.timestep.wresl",
+                "variable.parameter.goal.side.wresl",
+                "variable.parameter.objective.weight.wresl",
+                "variable.parameter.declaration.value.wresl",
+                "variable.parameter.declaration.bounds.wrsel",
+                "variable.parameter.declaration.kind.wresl",
+                "variable.parameter.declaration.units.wrsel",
+                "variable.parameter.declaration.convert.wrsel"
             ],
             "settings": {
                 "foreground": "#9CDCFE",
@@ -21,7 +34,7 @@
         },
         {
             "scope": [
-                "variable.other.default"
+                "variable.other.default.wresl"
             ],
             "settings": {
                 "foreground": "#9CDCFE"
@@ -29,9 +42,19 @@
         },
         {
             "scope": [
-                "entity.name.class",
-                "entity.name.type",
-                "entity.name.section"
+                "entity.name.class.objective.wresl",
+                "entity.name.class.objective.variable.wresl",
+                "entity.name.class.group.wresl",
+                "entity.name.class.model.wresl",
+                "entity.name.class.lookup.result.wresl",
+                "entity.name.class.lookup.table.wresl",
+                "entity.name.class.goal.wresl",
+                "entity.name.type.variable.wresl",
+                "entity.name.type.timeseries.wresl",
+                "entity.name.type.define.wresl",
+                "entity.name.type.case.wresl",
+                "entity.name.section.sequence.wresl",
+                "entity.name.section.order.wresl"
             ],
             "settings": {
                 "foreground": "#4EC9B0"
@@ -39,11 +62,11 @@
         },
         {
             "scope": [
-                "constant.language.lookup",
-                "constant.language.penalty-type",
-                "constant.language.always",
-                "constant.language.external-function",
-                "constant.character.futurearray"
+                "constant.language.lookup.use.wresl",
+                "constant.language.penalty-type.wresl",
+                "constant.language.always.wresl",
+                "constant.language.external-function.wresl",
+                "constant.language.futurearray.wresl"
             ],
             "settings": {
                 "foreground": "#B5CEA8"
