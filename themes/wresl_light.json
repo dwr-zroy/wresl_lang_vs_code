@@ -1,0 +1,82 @@
+{
+    "name":"WRESL",
+    "include":"./light_modern.json",
+    "tokenColors":[
+        {
+            "scope": [
+                "support.function.sum.wresl",
+                "support.function.intrinsic.conversion.wresl",
+                "support.function.intrinsic.binary.wresl",
+                "support.function.intrinsic.unary.wresl"
+            ],
+            "settings": {
+                "foreground": "#795E26"
+            }
+        },
+        {
+            "scope": [
+                "variable.parameter.sequence.model.wresl",
+                "variable.parameter.sequence.order.wrsel",
+                "variable.parameter.sequence.condition.wresl",
+                "variable.parameter.sequence.timestep.wresl",
+                "variable.parameter.goal.side.wresl",
+                "variable.parameter.objective.weight.wresl",
+                "variable.parameter.declaration.value.wresl",
+                "variable.parameter.declaration.bounds.wrsel",
+                "variable.parameter.declaration.kind.wresl",
+                "variable.parameter.declaration.units.wrsel",
+                "variable.parameter.declaration.convert.wrsel"
+            ],
+            "settings": {
+                "foreground": "#001080",
+                "fontStyle": "italic"
+            }
+        },
+        {
+            "scope": [
+                "variable.other.default.wresl"
+            ],
+            "settings": {
+                "foreground": "#001080"
+            }
+        },
+        {
+            "scope": [
+                "entity.name.class.objective.wresl",
+                "entity.name.class.objective.variable.wresl",
+                "entity.name.class.group.wresl",
+                "entity.name.class.model.wresl",
+                "entity.name.class.lookup.result.wresl",
+                "entity.name.class.lookup.table.wresl",
+                "entity.name.class.goal.wresl",
+                "entity.name.type.variable.wresl",
+                "entity.name.type.timeseries.wresl",
+                "entity.name.type.define.wresl",
+                "entity.name.type.case.wresl",
+                "entity.name.section.sequence.wresl",
+                "entity.name.section.order.wresl"
+            ],
+            "settings": {
+                "foreground": "#267f99"
+            }
+        },
+        {
+            "scope": [
+                "constant.language.lookup.use.wresl",
+                "constant.language.penalty-type.wresl",
+                "constant.language.always.wresl",
+                "constant.language.external-function.wresl",
+                "constant.language.futurearray.wresl"
+            ],
+            "settings": {
+                "foreground": "#AF00DB"
+            }
+        }
+    ],
+    "semanticTokenColors":{
+        "newOperator":"#C586C0",
+        "stringLiteral":"#CE9178",
+        "customLiteral":"#795E26",
+        "numberLiteral":"#B5CEA8"
+    }
+}

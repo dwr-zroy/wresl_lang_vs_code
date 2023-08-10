@@ -92,7 +92,7 @@
 			"name": "meta.funcions.instrinsic.wresl",
 			"patterns": [
 				{
-					"begin": "(?i)\\b(cfs_taf|taf_cfs)\\(\\b",
+					"begin": "(?i)\\b(cfs_taf|taf_cfs)\\(",
 					"end": "\\)",
 					"beginCaptures": {
 						"1": {"name": "support.function.intrinsic.conversion.wresl"}
