@@ -11,7 +11,7 @@ on:
       - '*'
 
 jobs:
-  Build VSIX File:
+  Build-VSIX-File:
     runs-on: ubuntu-latest
 
     steps:
