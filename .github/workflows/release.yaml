@@ -23,8 +23,11 @@ jobs:
         with:
           node-version: ${{ secrets.NODE_VERSION }}
 
-      - name: Install packages
-        run: npm ci
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
+      - name: Build Package
+        run: vsce package 
 
       - name: Find Extension Version
         id: findVersion
