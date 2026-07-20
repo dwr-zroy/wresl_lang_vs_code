@@ -11,7 +11,7 @@ on:
       - '*'
 
 jobs:
-  cd:
+  Build VSIX File:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,12 +33,9 @@ jobs:
         id: findVersion
         run: |
           APP_VERSION=`cat package.json | jq ".version" -M | sed 's/\"//g'`
-          echo "::set-output name=AppVersion::$APP_VERSION"
+          echo "name=AppVersion::$APP_VERSION" >> $GITHUB_OUTPUT
           echo "app version = v$APP_VERSION"
       
-      - name: Build VSIX File
-        run: npm run build -- -o wresl-highlight.v${{ steps.findVersion.outputs.AppVersion }}.vsix
-
       # - name: Publish extension package
       #   env:
       #     VSCODE_MARKETPLACE_TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
