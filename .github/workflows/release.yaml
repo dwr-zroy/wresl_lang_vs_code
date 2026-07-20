@@ -1,4 +1,4 @@
-name: "release"
+name: "Build & Release Extension"
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ on:
       - '*'
 
 jobs:
-  cd:
+  Build-VSIX-File:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,25 +23,26 @@ jobs:
         with:
           node-version: ${{ secrets.NODE_VERSION }}
 
-      - name: Install packages
-        run: npm ci
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
 
-      - name: Calculate version
-        id: calculateVersion
+      - name: Build Package
+        run: vsce package 
+
+      - name: Find Extension Version
+        id: find-version
         run: |
           APP_VERSION=`cat package.json | jq ".version" -M | sed 's/\"//g'`
-          echo "::set-output name=AppVersion::$APP_VERSION"
-          echo "app version = v$APP_VERSION"
-      - name: Build VSIX package
-        run: npm run build -- -o wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
-
+          echo "version=$APP_VERSION" >> $GITHUB_OUTPUT
+          echo "app version = $APP_VERSION"
+      
       # - name: Publish extension package
       #   env:
       #     VSCODE_MARKETPLACE_TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
       #   run: npm run vsce -- publish -p $VSCODE_MARKETPLACE_TOKEN
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v7
         name: Upload artifact
         with:
-          name: wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
-          path: wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
+          name: wresl-highlight-${{ steps.find-version.outputs.version }}.vsix
+          path: wresl-highlight-${{ steps.find-version.outputs.version }}.vsix

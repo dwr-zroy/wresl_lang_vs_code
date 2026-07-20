@@ -3,7 +3,7 @@
 	"publisher": "dwr-zroy",
   "name": "wresl-highlight",
   "repository": {
-    "type": "gitea",
+    "type": "github",
     "url": "https://github.com/dwr-zroy/wresl_lang_vs_code"
   },
   "displayName": "WRESL+ Highlighting",
@@ -20,7 +20,7 @@
   "contributes": {
     "languages": [{
       "id": "wresl",
-      "aliases": ["WRESL", "wresl"],
+      "aliases": ["WRESL", "WRESL+", "WRESL Plus"],
       "extensions": [".wresl" ,".wpp"],
       "configuration": "./language-configuration.json"
     }],
