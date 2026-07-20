@@ -1,4 +1,4 @@
-name: "release"
+name: "Build & Release Extension"
 
 on:
   pull_request:
@@ -26,22 +26,23 @@ jobs:
       - name: Install packages
         run: npm ci
 
-      - name: Calculate version
-        id: calculateVersion
+      - name: Find Extension Version
+        id: findVersion
         run: |
           APP_VERSION=`cat package.json | jq ".version" -M | sed 's/\"//g'`
           echo "::set-output name=AppVersion::$APP_VERSION"
           echo "app version = v$APP_VERSION"
-      - name: Build VSIX package
-        run: npm run build -- -o wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
+      
+      - name: Build VSIX File
+        run: npm run build -- -o wresl-highlight.v${{ steps.findVersion.outputs.AppVersion }}.vsix
 
       # - name: Publish extension package
       #   env:
       #     VSCODE_MARKETPLACE_TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
       #   run: npm run vsce -- publish -p $VSCODE_MARKETPLACE_TOKEN
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         name: Upload artifact
         with:
-          name: wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
-          path: wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
+          name: wresl-highlight.v${{ steps.findVersion.outputs.AppVersion }}.vsix
+          path: wresl-highlight.v${{ steps.findVersion.outputs.AppVersion }}.vsix
