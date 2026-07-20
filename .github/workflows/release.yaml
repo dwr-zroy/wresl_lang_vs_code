@@ -1,0 +1,47 @@
+name: "release"
+
+on:
+  pull_request:
+    types:
+      - synchronize
+      - opened
+      - reopened
+  push:
+    tags:
+      - '*'
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to branch
+        uses: actions/checkout@v6
+
+      - name: Setup node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ secrets.NODE_VERSION }}
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Calculate version
+        id: calculateVersion
+        run: |
+          APP_VERSION=`cat package.json | jq ".version" -M | sed 's/\"//g'`
+          echo "::set-output name=AppVersion::$APP_VERSION"
+          echo "app version = v$APP_VERSION"
+      - name: Build VSIX package
+        run: npm run build -- -o wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
+
+      # - name: Publish extension package
+      #   env:
+      #     VSCODE_MARKETPLACE_TOKEN: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
+      #   run: npm run vsce -- publish -p $VSCODE_MARKETPLACE_TOKEN
+
+      - uses: actions/upload-artifact@v2
+        name: Upload artifact
+        with:
+          name: wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
+          path: wresl-highlight.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
