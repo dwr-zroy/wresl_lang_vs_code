@@ -30,11 +30,11 @@ jobs:
         run: vsce package 
 
       - name: Find Extension Version
-        id: findVersion
+        id: find-version
         run: |
           APP_VERSION=`cat package.json | jq ".version" -M | sed 's/\"//g'`
-          echo "name=AppVersion::$APP_VERSION" >> $GITHUB_OUTPUT
-          echo "app version = v$APP_VERSION"
+          echo "version=$APP_VERSION" >> $GITHUB_OUTPUT
+          echo "app version = $APP_VERSION"
       
       # - name: Publish extension package
       #   env:
@@ -44,5 +44,5 @@ jobs:
       - uses: actions/upload-artifact@v7
         name: Upload artifact
         with:
-          name: wresl-highlight-${{ steps.findVersion.outputs.AppVersion }}.vsix
-          path: wresl-highlight-${{ steps.findVersion.outputs.AppVersion }}.vsix
+          name: wresl-highlight-${{ steps.find-version.outputs.version }}.vsix
+          path: wresl-highlight-${{ steps.find-version.outputs.version }}.vsix
