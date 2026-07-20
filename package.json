@@ -1,13 +1,13 @@
 {
-	"author": "CA Department of Water Resources, State Water Project Modeling Support Office",
-	"publisher": "cadwr-mso",
-  "name": "wresl",
+	"author": "ZRoy @ CA Department of Water Resources, State Water Project Modeling Support Office",
+	"publisher": "dwr-zroy",
+  "name": "wresl-highlight",
   "repository": {
     "type": "gitea",
     "url": "https://github.com/dwr-zroy/wresl_lang_vs_code"
   },
-  "displayName": "WRESL",
-  "description": "Water Resources Simultion Language Highlighting",
+  "displayName": "WRESL+ Highlighting",
+  "description": "Water Resources Simultion Language Syntax Highlighting",
   "version": "1.2.1",
   "engines": {
     "vscode": "^1.79.0"
@@ -21,7 +21,7 @@
     "languages": [{
       "id": "wresl",
       "aliases": ["WRESL", "wresl"],
-      "extensions": [".wresl"],
+      "extensions": [".wresl" ,".wpp"],
       "configuration": "./language-configuration.json"
     }],
     "grammars": [{
